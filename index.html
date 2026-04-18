@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Arts Portfolio</title>
+    <style>
+        /* --- ڕێکخستنی سەرەتایی و باکگراوندی جوڵاو --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #0f172a, #312e81, #1e1b4b, #020617);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- ڕووکاری پێشەکی (Landing Page) --- */
+        #intro-section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: opacity 2s ease, visibility 2s;
+            position: fixed;
+            width: 100%;
+            z-index: 100;
+            background: inherit;
+        }
+
+        .intro-glass {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 60px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        /* ئەنیمەیشنی گۆڕانی فۆنتی دوگمەکە */
+        @keyframes fontSwap {
+            0% { font-family: 'Arial', sans-serif; }
+            20% { font-family: 'Courier New', Courier, monospace; }
+            40% { font-family: 'Georgia', serif; }
+            60% { font-family: 'Impact', fantasy; }
+            80% { font-family: 'Verdana', sans-serif; }
+            100% { font-family: 'Arial', sans-serif; }
+        }
+
+        #start-btn {
+            font-size: 2rem;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 40px;
+            border-radius: 30px;
+            cursor: pointer;
+            animation: fontSwap 2s infinite;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        #start-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        /* --- بەشی وێنەکان (Gallery) --- */
+        #gallery-section {
+            display: none;
+            padding: 100px 20px;
+            opacity: 0;
+            transition: opacity 2s ease;
+        }
+
+        .art-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 150px;
+            min-height: 60vh;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+            gap: 40px;
+        }
+
+        /* پیشاندان و شاردنەوە لەکاتی سکرۆڵ */
+        .art-row.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* لای چەپ و لای ڕاست */
+        .art-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .art-image {
+            flex: 1;
+            max-width: 45%;
+            cursor: pointer;
+            transition: transform 0.5s ease;
+        }
+
+        .art-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .art-image img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px rgba(255,255,255,0.1);
+        }
+
+        /* ستایلی نوسینەکان بە شێوەی گلاسی */
+        .art-text-container {
+            flex: 1;
+            max-width: 45%;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        .art-text span {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            .art-row, .art-row:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
+            .art-image, .art-text-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bg-music" loop>
+        <source src="Cigarettes After Sex - Apocalypse (looped intro)(MP3_320K).mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="intro-section">
+        <div class="intro-glass">
+            <h1 style="font-weight: 300; letter-spacing: 2px; margin-bottom: 30px;">Welcome to the Exhibition</h1>
+            <button id="start-btn">My Arts</button>
+        </div>
+    </div>
+
+    <div id="gallery-section">
+        </div>
+
+    <script>
+        // زانیاری وێنەکان و دەقەکانیان
+        const artsData = [
+            { img: 'art1.png', text: "A window to a silent soul, captured in the raw honesty of charcoal. This gaze is not merely an observation; it is an invitation into a labyrinth of unspoken thoughts. The darkness of the iris holds a universe of depth, framed by lashes that reach out like delicate shadows. Between the sharp lines and the soft smudges of graphite, there lies a profound stillness—a moment frozen where the eye speaks what the lips dare not utter." },
+            { img: 'art2.png', text: "A symphony of gold and violet unfolds across a canvas of fading light. The power lines, etched like musical staves against the amber sky, carry the silhouettes of birds as if they were notes in a melancholic melody. There is a poetic balance in this urban sunset—where the cold geometry of industrial wires meets the fleeting freedom of wings. It captures that transient moment of dusk when the world pauses to breathe, suspended between the warmth of the day and the encroaching mystery of the night." },
+            { img: 'art3.png', text: "An impressionistic daydream where the earth reaches up to kiss the heavens. Below, a vibrant tapestry of wildflowers dances in the breeze, scattered like colorful confetti across a sea of emerald green. Above, the sky is heavy with majestic, swirling clouds—great pillows of white and gray that seem to pulse with a life of their own. It is a celebration of nature’s untamed beauty, a moment where the chaos of the brushstrokes creates a perfect harmony of light, color, and infinite possibilities." },
+            { img: 'art4.png', text: "The anatomy of a bleeding passion, where the cold precision of ink meets the warmth of a blooming soul. This anatomical heart, intricately detailed with every vein and valve, serves as a vessel not just for life, but for the emotions that consume us. The crimson roses erupting from its core are a testament to the beauty that can grow from vulnerability—a fragile coexistence of thorns and petals. It is a visual metaphor for the human condition: a heart that beats with the weight of its own history, yet finds the strength to flourish in vibrant, defiant color." },
+            { img: 'art5.png', text: "A solitary sentinel of light in a world of deepening azure. This vintage streetlamp stands as a beacon of warmth against the cool, rhythmic textures of a winter’s night. The golden halo it casts is not just light, but a sanctuary—a soft glow that carves out a space of safety amidst the swirling shadows and the whispers of falling snow. There is a profound sense of solitude here, yet it isn't lonely; it is the quiet, comforting presence of a guide through the darkness, reminding us that even in the coldest nights, a single spark can hold the shadows at bay." },
+            { img: 'art6.png', text: "A celestial dance of emerald and gold, where the heavens spill their starlit secrets over the silent earth. The dark, jagged silhouettes of the pines stand like ancient watchers, their needles pointing toward the infinite mystery of the aurora. In this cosmic tapestry, the vibrant transition from lime-yellow to deep obsidian creates a sense of awe—a reminder that we are but small witnesses to the grand, glowing whispers of the universe. It is a moment of profound cosmic solitude, where the static of the world fades into the shimmering dust of a thousand distant suns." },
+            { img: 'art7.png', text: "A skeletal silhouette reaching for the infinite, standing as a lone witness to the cosmic theater above. Under a canopy of indigo and obsidian, the bare branches of the tree act like nerves, sensing the cold vibration of the starlight. The crescent moon and the fleeting streak of a shooting star break the stillness, offering a glimpse of movement in the eternal void. It is a portrait of existential patience—a reminder that even in our barest, most winter-like moments, we are still cradled by the vast and shimmering beauty of the universe." },
+            { img: 'art8.png', text: "A breathtaking ocean of indigo and teal spills across the night sky, where the Milky Way breathes in swirls of celestial dust. The constellations emerge like ancient silver anchors in a sea of dreams, guiding the wandering soul through the vastness of the unknown. Below, the dark, jagged edge of the forest stands in solemn reverence, silhouetted against the vibrant cosmic glow. It is a visual poem of interconnectedness—a moment where the boundaries between the earthly and the divine dissolve into a single, shimmering heartbeat of the universe." }
+        ];
+
+        const gallerySection = document.getElementById('gallery-section');
+
+        // دروستکردنی بۆکسەکان بۆ هەر وێنەیەک
+        artsData.forEach((art, index) => {
+            const row = document.createElement('div');
+            row.className = 'art-row';
+
+            const imgDiv = document.createElement('div');
+            imgDiv.className = 'art-image';
+            imgDiv.innerHTML = `<img src="${art.img}" alt="Art ${index + 1}" onclick="revealText(${index})">`;
+
+            const textDiv = document.createElement('div');
+            textDiv.className = 'art-text-container';
+            
+            const textContent = document.createElement('div');
+            textContent.className = 'art-text';
+            textContent.id = `text-${index}`;
+            // دانانی دەقەکە بە شاراوەیی پێش کلیک کردن
+            textContent.innerHTML = "<i>Click the image to reveal the story...</i>";
+
+            textDiv.appendChild(textContent);
+            row.appendChild(imgDiv);
+            row.appendChild(textDiv);
+            gallerySection.appendChild(row);
+        });
+
+        // کارپێکردنی موزیک و گۆڕینی ڕووکار کاتێک دوگمەکە دادەگیرێت
+        document.getElementById('start-btn').addEventListener('click', () => {
+            const music = document.getElementById('bg-music');
+            music.volume = 0.5; // دەنگی موزیکەکە مامناوەندە
+            music.play();
+
+            const intro = document.getElementById('intro-section');
+            const gallery = document.getElementById('gallery-section');
+
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                gallery.style.display = 'block';
+                // فەید ئین بۆ گەلەریەکە
+                setTimeout(() => { gallery.style.opacity = '1'; }, 100);
+            }, 2000); // 2 چرکە دەخایەنێت تا بە نەرمی ون دەبێت
+        });
+
+        // فانکشنی دەرکەوتنی نوسینەکان وشە بە وشە
+        function revealText(index) {
+            const textElement = document.getElementById(`text-${index}`);
+            // ئەگەر پێشتر کلیک کرابوو دووبارە نەبێتەوە
+            if (textElement.classList.contains('revealed')) return;
+            textElement.classList.add('revealed');
+            
+            const words = artsData[index].text.split(' ');
+            textElement.innerHTML = ''; // سڕینەوەی نوسینە کاتیەکە
+            
+            words.forEach((word, i) => {
+                const span = document.createElement('span');
+                span.innerText = word + ' ';
+                textElement.appendChild(span);
+                
+                // دەرکەوتنی هەر وشەیەک بە جیاوازی کات (فەید)
+                setTimeout(() => {
+                    span.style.opacity = '1';
+                }, i * 120); // هەر وشەیەک 120 میللی چرکەی نێوانە
+            });
+        }
+
+        // دروستکردنی ئەنیمەیشنی سکرۆڵ (ونبوون و دەرکەوتن)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3 // کاتێک 30٪ی وێنەکە دەردەکەوێت ئەنیمەیشنەکە دەست پێدەکات
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                } else {
+                    entry.target.classList.remove('show'); // کاتێک لە شاشەکە دەچێتە دەرەوە ون دەبێت
+                }
+            });
+        }, observerOptions);
+
+        // چاودێری کردنی هەموو وێنەکان
+        setTimeout(() => {
+            document.querySelectorAll('.art-row').forEach((row) => {
+                observer.observe(row);
+            });
+        }, 100);
+
+    </script>
+</body>
+</html>
