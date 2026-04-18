@@ -1,95 +1,80 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Arts Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* --- ڕێکخستنی سەرەتایی --- */
-        body, html {
+        /* --- باکگراوندی ڕەنگاوڕەنگی جوڵاو (لە کۆدەکەی خۆتەوە وەرگیراوە) --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(-45deg, #ff9a9e, #fecfef, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
+            min-height: 100vh;
             overflow-x: hidden;
-            background-color: #000;
+            color: #1a1a1a;
         }
 
-        /* --- باکگراوندی ڕەنگەکان (فەید بوونی چوار بە چوار) --- */
-        .bg-layer {
-            position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            z-index: -1;
-            transition: opacity 4s ease-in-out; /* فەید بوونێکی زۆر نەرم */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        /* سێتی یەکەم: مۆر و پەمەیی و ڕەنگەکانی نزیکیان */
-        .bg-1 {
-            background: radial-gradient(circle at 20% 30%, #86198f 0%, transparent 50%),
-                        radial-gradient(circle at 80% 20%, #db2777 0%, transparent 50%),
-                        radial-gradient(circle at 40% 80%, #4c1d95 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, #be185d 0%, transparent 50%);
-            background-color: #2e1065;
-            animation: pulseBg 10s infinite alternate ease-in-out;
-            opacity: 1;
+        /* --- دیزاینی شووشەیی (Glassmorphism) --- */
+        .glass {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.1);
         }
 
-        /* سێتی دووەم: چوار ڕەنگی تر */
-        .bg-2 {
-            background: radial-gradient(circle at 70% 60%, #4a044e 0%, transparent 50%),
-                        radial-gradient(circle at 30% 70%, #9d174d 0%, transparent 50%),
-                        radial-gradient(circle at 80% 30%, #312e81 0%, transparent 50%),
-                        radial-gradient(circle at 20% 20%, #831843 0%, transparent 50%);
-            background-color: #1e1b4b;
-            animation: pulseBg 12s infinite alternate-reverse ease-in-out;
-            opacity: 0;
-        }
-
-        /* جوڵەیەکی زۆر هێواش لەناو ڕەنگەکاندا */
-        @keyframes pulseBg {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
+        .glass-image {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.1);
         }
 
         /* --- ڕووکاری پێشەکی --- */
         #intro-section {
-            height: 100vh;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100vh;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 2s ease, visibility 2s;
-            position: fixed;
-            width: 100%;
             z-index: 100;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
         }
 
         /* --- دوگمەی My Arts --- */
         #start-btn {
-            width: 250px;       /* قەبارەی جێگیر بۆ ئەوەی وشەکە نەجوڵێت */
-            height: 70px;
+            width: 280px;
+            height: 80px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.8rem;
-            color: #fff;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 40px;
             cursor: pointer;
-            backdrop-filter: blur(15px);
-            transition: background 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         #start-btn:hover {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(126, 34, 206, 0.2); /* سێبەری مۆر */
         }
 
-        /* گۆڕینی فۆنتەکان بە هێواشی و بەبێ تێکچوونی قەبارە */
+        /* ئەنیمەیشنی فۆنتەکان بە نەرمی */
         .btn-text {
+            font-size: 2rem;
+            color: #4c1d95; /* مۆری تۆخ */
+            font-weight: bold;
             animation: fontSmoothSwap 8s infinite;
         }
 
@@ -101,100 +86,69 @@
             100%      { font-family: 'Segoe UI', Tahoma, sans-serif; }
         }
 
-        /* --- بەشی وێنەکان (Gallery) --- */
+        /* --- بەشی وێنەکان --- */
         #gallery-section {
             display: none;
-            padding: 50px 0;
             opacity: 0;
             transition: opacity 2s ease;
         }
 
-        .art-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* ڕیزبەندی ڕاست و چەپ */
         .art-row {
-            display: flex;
-            align-items: center;     /* وێنە و نوسین ڕێک بەرامبەر یەک دەوەستن */
-            justify-content: space-between;
-            margin-bottom: 30vh;     /* مەودایەکی زۆر لەنێوان هەر وێنەیەک کە دێیتە خوارەوە */
-            gap: 60px;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* وێنە لای ڕاست، نوسین لای چەپ */
-        .art-row:nth-child(odd) {
-            flex-direction: row-reverse;
+        .art-row.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        /* وێنە لای چەپ، نوسین لای ڕاست */
-        .art-row:nth-child(even) {
-            flex-direction: row;
+        .art-image-img {
+            transition: transform 0.5s ease;
         }
-
-        .art-image, .art-text-wrapper {
-            flex: 1;
-            width: 50%;
-        }
-
-        .art-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .art-text-wrapper {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 15px;
-            padding: 35px;
-            font-size: 1.15rem;
-            line-height: 1.8;
-            color: #ddd;
+        
+        .glass-image:hover .art-image-img {
+            transform: scale(1.02);
         }
 
         /* ستایلی فەید بوونی وشەکان */
         .word {
             opacity: 0;
-            transition: opacity 0.5s ease; /* نەرمکردنی دەرکەوتنی هەر وشەیەک */
-        }
-
-        @media (max-width: 768px) {
-            .art-row, .art-row:nth-child(odd), .art-row:nth-child(even) {
-                flex-direction: column;
-                margin-bottom: 15vh;
-            }
-            .art-image, .art-text-wrapper { width: 100%; }
+            transition: opacity 0.5s ease;
+            display: inline-block;
+            margin-right: 4px;
         }
     </style>
 </head>
-<body>
-
-    <div class="bg-layer bg-1" id="bg1"></div>
-    <div class="bg-layer bg-2" id="bg2"></div>
+<body class="antialiased">
 
     <audio id="bg-music" loop>
         <source src="Cigarettes After Sex - Apocalypse (looped intro)(MP3_320K).mp3" type="audio/mpeg">
     </audio>
 
-    <div id="intro-section">
-        <button id="start-btn">
-            <span class="btn-text">My Arts</span>
+    <div id="intro-section" class="px-6">
+        <button id="start-btn" class="glass rounded-full text-center group">
+            <span class="btn-text group-hover:text-purple-900 transition-colors">My Arts</span>
         </button>
     </div>
 
-    <div id="gallery-section">
-        <div class="art-container" id="art-container">
+    <main id="gallery-section" class="max-w-7xl mx-auto px-6 py-24">
+        
+        <div class="text-center mb-32 glass p-8 rounded-3xl max-w-2xl mx-auto">
+            <h2 class="text-4xl md:text-5xl mb-4 font-bold text-purple-900" style="font-family: 'Georgia', serif;">The Exhibition</h2>
+            <div class="w-24 h-1 bg-purple-600 mx-auto rounded-full"></div>
+            <p class="mt-6 text-gray-700 text-lg">Scroll down to explore the stories behind the canvas.</p>
+        </div>
+
+        <div id="art-container" class="flex flex-col gap-y-[20vh]">
             </div>
-    </div>
+
+        <footer class="mt-32 border-t border-white/50 py-8 text-center glass rounded-t-3xl text-gray-700">
+            <p class="font-medium">&copy; 2026 My Arts Portfolio. A Journey of Colors and Words.</p>
+        </footer>
+
+    </main>
 
     <script>
         // زانیاری وێنەکان
@@ -211,40 +165,33 @@
 
         const container = document.getElementById('art-container');
 
-        // دروستکردنی کۆدەکان
+        // دروستکردنی کۆدەکان بە شێوازی Tailwind
         artsData.forEach((art, index) => {
+            // دیاریکردنی ئاراستە (زیک زاک): جووت و تاک
+            const isEven = index % 2 !== 0; 
+            const rowDirection = isEven ? 'md:flex-row-reverse' : 'md:flex-row';
+
             const row = document.createElement('div');
-            row.className = 'art-row';
+            row.className = `art-row flex flex-col ${rowDirection} items-center gap-12`;
 
+            // بەشی وێنە
             const imgDiv = document.createElement('div');
-            imgDiv.className = 'art-image';
-            imgDiv.innerHTML = `<img src="${art.img}" alt="Art ${index + 1}">`;
+            imgDiv.className = 'w-full md:w-1/2 glass-image p-4 rounded-3xl overflow-hidden flex justify-center items-center';
+            imgDiv.innerHTML = `<img src="${art.img}" alt="Art ${index + 1}" class="art-image-img w-full h-auto rounded-2xl object-cover">`;
 
+            // بەشی نوسین
             const textDiv = document.createElement('div');
-            textDiv.className = 'art-text-wrapper';
+            textDiv.className = 'w-full md:w-1/2 glass p-8 md:p-10 rounded-3xl';
             
-            // پارچە پارچەکردنی وشەکان بۆ ئەوەی وشە بە وشە دەربکەون
+            // پارچە پارچەکردنی وشەکان
             const words = art.text.split(' ');
-            const textHTML = words.map(word => `<span class="word">${word} </span>`).join('');
+            const textHTML = words.map(word => `<span class="word text-gray-800 text-lg md:text-xl leading-relaxed">${word}</span>`).join(' ');
             textDiv.innerHTML = textHTML;
 
             row.appendChild(imgDiv);
             row.appendChild(textDiv);
             container.appendChild(row);
         });
-
-        // گۆڕینی باکگراوندەکان چوار بە چوار
-        setInterval(() => {
-            const bg1 = document.getElementById('bg1');
-            const bg2 = document.getElementById('bg2');
-            if (bg1.style.opacity == 1 || bg1.style.opacity === "") {
-                bg1.style.opacity = 0;
-                bg2.style.opacity = 1;
-            } else {
-                bg1.style.opacity = 1;
-                bg2.style.opacity = 0;
-            }
-        }, 8000); // هەموو ٨ چرکەیەک ڕەنگەکان دەگۆڕێن بۆ سێتی دووەم
 
         // کارپێکردن بە کلیکی دوگمەکە
         document.getElementById('start-btn').addEventListener('click', () => {
@@ -260,14 +207,14 @@
                 intro.style.display = 'none';
                 gallery.style.display = 'block';
                 setTimeout(() => { gallery.style.opacity = '1'; }, 100);
-            }, 2000);
+            }, 1500);
         });
 
         // چاودێریکردنی سکرۆڵ بۆ دەرخستنی وشەکان لەگەڵ بینینی وێنەکە
         const observerOptions = {
             root: null,
-            rootMargin: '-10% 0px -10% 0px',
-            threshold: 0.3
+            rootMargin: '0px',
+            threshold: 0.35 // کاتێک ٣٥٪ی بۆکسەکە دەردەکەوێت
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -275,13 +222,14 @@
                 const words = entry.target.querySelectorAll('.word');
                 
                 if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
                     words.forEach((word, index) => {
                         setTimeout(() => {
                             word.style.opacity = '1';
-                        }, index * 40); // خێرایی دەرکەوتنی وشەکان (نەرم و خێرا)
+                        }, index * 40); // خێرایی دەرکەوتنی هەر وشەیەک ٤٠ میللی چرکە
                     });
                 } else {
-                    // ئەگەر ویستت وشەکان ون ببنەوە کاتێک لە شاشە دەچنە دەرەوە
+                    // شاردنەوەی وشەکان ئەگەر لە شاشە چوونە دەرەوە بۆ دووبارە دەرکەوتنەوەی جوانیان
                     words.forEach(word => {
                         word.style.opacity = '0';
                     });
