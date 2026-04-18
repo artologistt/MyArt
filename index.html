@@ -12,218 +12,192 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #fff;
             overflow-x: hidden;
-            scroll-behavior: smooth;
-            background-color: #020617; /* ڕەنگی بنچینەیی تاریک */
+            background-color: #000;
         }
 
-        /* --- باکگراوندی هەوری جوڵاو (Fluid Cloud Mesh Gradient) --- */
-        .bg-clouds {
+        /* --- باکگراوندی ڕەنگەکان (فەید بوونی چوار بە چوار) --- */
+        .bg-layer {
             position: fixed;
             top: 0; left: 0;
             width: 100vw; height: 100vh;
             z-index: -1;
-            overflow: hidden;
-            background: #000;
+            transition: opacity 4s ease-in-out; /* فەید بوونێکی زۆر نەرم */
         }
 
-        .cloud {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.7;
-            animation: moveClouds 20s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
+        /* سێتی یەکەم: مۆر و پەمەیی و ڕەنگەکانی نزیکیان */
+        .bg-1 {
+            background: radial-gradient(circle at 20% 30%, #86198f 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, #db2777 0%, transparent 50%),
+                        radial-gradient(circle at 40% 80%, #4c1d95 0%, transparent 50%),
+                        radial-gradient(circle at 80% 80%, #be185d 0%, transparent 50%);
+            background-color: #2e1065;
+            animation: pulseBg 10s infinite alternate ease-in-out;
+            opacity: 1;
         }
 
-        /* دروستکردنی ڕەنگەکان و شێوەی هەورەکان */
-        .cloud1 { background: #4c1d95; width: 60vw; height: 60vh; top: -10%; left: -10%; animation-duration: 25s; }
-        .cloud2 { background: #be185d; width: 50vw; height: 50vh; bottom: -20%; right: -10%; animation-duration: 28s; animation-direction: alternate-reverse; }
-        .cloud3 { background: #0f766e; width: 45vw; height: 45vh; top: 40%; left: 30%; animation-duration: 22s; }
-        .cloud4 { background: #1d4ed8; width: 55vw; height: 55vh; top: 10%; right: 20%; animation-duration: 30s; }
-
-        @keyframes moveClouds {
-            0% { transform: translate(0, 0) scale(1); }
-            33% { transform: translate(15vw, 15vh) scale(1.1); }
-            66% { transform: translate(-10vw, 10vh) scale(0.9); }
-            100% { transform: translate(10vw, -15vh) scale(1.1); }
+        /* سێتی دووەم: چوار ڕەنگی تر */
+        .bg-2 {
+            background: radial-gradient(circle at 70% 60%, #4a044e 0%, transparent 50%),
+                        radial-gradient(circle at 30% 70%, #9d174d 0%, transparent 50%),
+                        radial-gradient(circle at 80% 30%, #312e81 0%, transparent 50%),
+                        radial-gradient(circle at 20% 20%, #831843 0%, transparent 50%);
+            background-color: #1e1b4b;
+            animation: pulseBg 12s infinite alternate-reverse ease-in-out;
+            opacity: 0;
         }
 
-        /* --- ڕووکاری پێشەکی (Landing Page) --- */
+        /* جوڵەیەکی زۆر هێواش لەناو ڕەنگەکاندا */
+        @keyframes pulseBg {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+
+        /* --- ڕووکاری پێشەکی --- */
         #intro-section {
             height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
             transition: opacity 2s ease, visibility 2s;
             position: fixed;
             width: 100%;
             z-index: 100;
         }
 
-        .intro-glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 50px 80px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
-        }
-
-        /* ئەنیمەیشنی خێرا و ئاڵۆزی گۆڕانی فۆنتەکانی دوگمەکە */
-        @keyframes crazyFontSwap {
-            0%   { font-family: 'Arial', sans-serif; font-weight: normal; font-style: normal; letter-spacing: 2px; text-transform: uppercase; }
-            14%  { font-family: 'Courier New', monospace; font-weight: bold; font-style: italic; letter-spacing: 5px; text-transform: lowercase; }
-            28%  { font-family: 'Georgia', serif; font-weight: 100; font-style: normal; letter-spacing: -1px; text-transform: capitalize; }
-            42%  { font-family: 'Impact', fantasy; font-weight: normal; font-style: italic; letter-spacing: 3px; text-transform: uppercase; }
-            57%  { font-family: 'Comic Sans MS', cursive; font-weight: bold; font-style: normal; letter-spacing: 1px; text-transform: lowercase; }
-            71%  { font-family: 'Times New Roman', serif; font-weight: 900; font-style: italic; letter-spacing: 6px; text-transform: capitalize; }
-            85%  { font-family: 'Verdana', sans-serif; font-weight: normal; font-style: italic; letter-spacing: -2px; text-transform: uppercase; }
-            100% { font-family: 'Arial', sans-serif; font-weight: normal; font-style: normal; letter-spacing: 2px; text-transform: uppercase; }
-        }
-
+        /* --- دوگمەی My Arts --- */
         #start-btn {
-            font-size: 2.5rem;
+            width: 250px;       /* قەبارەی جێگیر بۆ ئەوەی وشەکە نەجوڵێت */
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
             color: #fff;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 15px 50px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 40px;
             cursor: pointer;
-            animation: crazyFontSwap 0.7s infinite; /* خێرایی زۆرتر کرا */
-            transition: background 0.3s ease, transform 0.3s ease;
-            backdrop-filter: blur(10px);
-            min-width: 250px;
+            backdrop-filter: blur(15px);
+            transition: background 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         #start-btn:hover {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
-            transform: scale(1.1);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* گۆڕینی فۆنتەکان بە هێواشی و بەبێ تێکچوونی قەبارە */
+        .btn-text {
+            animation: fontSmoothSwap 8s infinite;
+        }
+
+        @keyframes fontSmoothSwap {
+            0%, 20%   { font-family: 'Segoe UI', Tahoma, sans-serif; }
+            25%, 45%  { font-family: 'Georgia', serif; }
+            50%, 70%  { font-family: 'Courier New', Courier, monospace; }
+            75%, 95%  { font-family: 'Times New Roman', Times, serif; }
+            100%      { font-family: 'Segoe UI', Tahoma, sans-serif; }
         }
 
         /* --- بەشی وێنەکان (Gallery) --- */
         #gallery-section {
             display: none;
-            padding: 100px 0;
+            padding: 50px 0;
             opacity: 0;
             transition: opacity 2s ease;
         }
 
-        /* دیزاینی زیک زاک */
+        .art-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ڕیزبەندی ڕاست و چەپ */
         .art-row {
             display: flex;
-            align-items: center;
+            align-items: center;     /* وێنە و نوسین ڕێک بەرامبەر یەک دەوەستن */
             justify-content: space-between;
-            margin: 0 auto 250px auto; /* مەودایەکی زۆر لەنێوان ڕیزەکان بۆ سکرۆڵی زیاتر */
-            width: 85%;
+            margin-bottom: 30vh;     /* مەودایەکی زۆر لەنێوان هەر وێنەیەک کە دێیتە خوارەوە */
             gap: 60px;
-            opacity: 0;
-            transform: translateY(100px);
-            transition: all 1.2s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        .art-row.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ڕیزی تاک: وێنە لای ڕاست، نوسین لای چەپ */
+        /* وێنە لای ڕاست، نوسین لای چەپ */
         .art-row:nth-child(odd) {
             flex-direction: row-reverse;
         }
 
-        /* ڕیزی جووت: وێنە لای چەپ، نوسین لای ڕاست */
+        /* وێنە لای چەپ، نوسین لای ڕاست */
         .art-row:nth-child(even) {
             flex-direction: row;
         }
 
-        .art-image, .art-text-container {
+        .art-image, .art-text-wrapper {
             flex: 1;
-            width: 45%;
-        }
-
-        .art-image {
-            display: flex;
-            justify-content: center;
+            width: 50%;
         }
 
         .art-image img {
             width: 100%;
-            max-width: 600px; /* سایزی مامناوەند بۆ وێنەکان */
             height: auto;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             background: rgba(255, 255, 255, 0.05);
-            padding: 12px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            transition: transform 0.5s ease;
-        }
-
-        .art-image img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 20px 50px rgba(255, 255, 255, 0.1);
-        }
-
-        /* ستایلی گلاسی بۆ نوسینەکان */
-        .art-text-container {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
+            padding: 10px;
+            backdrop-filter: blur(5px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            font-size: 1.2rem;
-            line-height: 1.9;
-            color: #eee;
-            text-align: justify;
         }
 
-        /* وشەکان سەرەتا شاراوەن */
+        .art-text-wrapper {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
+            padding: 35px;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        /* ستایلی فەید بوونی وشەکان */
         .word {
             opacity: 0;
-            transition: opacity 0.4s ease;
-            display: inline-block;
-            margin-right: 4px;
+            transition: opacity 0.5s ease; /* نەرمکردنی دەرکەوتنی هەر وشەیەک */
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
             .art-row, .art-row:nth-child(odd), .art-row:nth-child(even) {
                 flex-direction: column;
-                margin-bottom: 150px;
+                margin-bottom: 15vh;
             }
-            .art-image, .art-text-container {
-                width: 100%;
-            }
+            .art-image, .art-text-wrapper { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-clouds">
-        <div class="cloud cloud1"></div>
-        <div class="cloud cloud2"></div>
-        <div class="cloud cloud3"></div>
-        <div class="cloud cloud4"></div>
-    </div>
+    <div class="bg-layer bg-1" id="bg1"></div>
+    <div class="bg-layer bg-2" id="bg2"></div>
 
     <audio id="bg-music" loop>
         <source src="Cigarettes After Sex - Apocalypse (looped intro)(MP3_320K).mp3" type="audio/mpeg">
     </audio>
 
     <div id="intro-section">
-        <div class="intro-glass">
-            <button id="start-btn">My Arts</button>
-        </div>
+        <button id="start-btn">
+            <span class="btn-text">My Arts</span>
+        </button>
     </div>
 
     <div id="gallery-section">
-        </div>
+        <div class="art-container" id="art-container">
+            </div>
+    </div>
 
     <script>
+        // زانیاری وێنەکان
         const artsData = [
             { img: 'art1.png', text: "A window to a silent soul, captured in the raw honesty of charcoal. This gaze is not merely an observation; it is an invitation into a labyrinth of unspoken thoughts. The darkness of the iris holds a universe of depth, framed by lashes that reach out like delicate shadows. Between the sharp lines and the soft smudges of graphite, there lies a profound stillness—a moment frozen where the eye speaks what the lips dare not utter." },
             { img: 'art2.png', text: "A symphony of gold and violet unfolds across a canvas of fading light. The power lines, etched like musical staves against the amber sky, carry the silhouettes of birds as if they were notes in a melancholic melody. There is a poetic balance in this urban sunset—where the cold geometry of industrial wires meets the fleeting freedom of wings. It captures that transient moment of dusk when the world pauses to breathe, suspended between the warmth of the day and the encroaching mystery of the night." },
@@ -235,9 +209,9 @@
             { img: 'art8.png', text: "A breathtaking ocean of indigo and teal spills across the night sky, where the Milky Way breathes in swirls of celestial dust. The constellations emerge like ancient silver anchors in a sea of dreams, guiding the wandering soul through the vastness of the unknown. Below, the dark, jagged edge of the forest stands in solemn reverence, silhouetted against the vibrant cosmic glow. It is a visual poem of interconnectedness—a moment where the boundaries between the earthly and the divine dissolve into a single, shimmering heartbeat of the universe." }
         ];
 
-        const gallerySection = document.getElementById('gallery-section');
+        const container = document.getElementById('art-container');
 
-        // جیاکردنەوەی وشەکان بە مەبەستی فەید بوون و دروستکردنی دیزاینەکە
+        // دروستکردنی کۆدەکان
         artsData.forEach((art, index) => {
             const row = document.createElement('div');
             row.className = 'art-row';
@@ -247,19 +221,32 @@
             imgDiv.innerHTML = `<img src="${art.img}" alt="Art ${index + 1}">`;
 
             const textDiv = document.createElement('div');
-            textDiv.className = 'art-text-container';
+            textDiv.className = 'art-text-wrapper';
             
-            // دروستکردنی span بۆ هەر وشەیەک
+            // پارچە پارچەکردنی وشەکان بۆ ئەوەی وشە بە وشە دەربکەون
             const words = art.text.split(' ');
-            const textHTML = words.map(word => `<span class="word">${word}</span>`).join(' ');
+            const textHTML = words.map(word => `<span class="word">${word} </span>`).join('');
             textDiv.innerHTML = textHTML;
 
             row.appendChild(imgDiv);
             row.appendChild(textDiv);
-            gallerySection.appendChild(row);
+            container.appendChild(row);
         });
 
-        // کارپێکردنی موزیک و گۆڕینی ڕووکار
+        // گۆڕینی باکگراوندەکان چوار بە چوار
+        setInterval(() => {
+            const bg1 = document.getElementById('bg1');
+            const bg2 = document.getElementById('bg2');
+            if (bg1.style.opacity == 1 || bg1.style.opacity === "") {
+                bg1.style.opacity = 0;
+                bg2.style.opacity = 1;
+            } else {
+                bg1.style.opacity = 1;
+                bg2.style.opacity = 0;
+            }
+        }, 8000); // هەموو ٨ چرکەیەک ڕەنگەکان دەگۆڕێن بۆ سێتی دووەم
+
+        // کارپێکردن بە کلیکی دوگمەکە
         document.getElementById('start-btn').addEventListener('click', () => {
             const music = document.getElementById('bg-music');
             music.volume = 0.5;
@@ -276,11 +263,11 @@
             }, 2000);
         });
 
-        // ئۆبزێرڤەر بۆ چاودێریکردنی سکرۆڵ و دەرکەوتنی وشەکان
+        // چاودێریکردنی سکرۆڵ بۆ دەرخستنی وشەکان لەگەڵ بینینی وێنەکە
         const observerOptions = {
             root: null,
-            rootMargin: '0px',
-            threshold: 0.4 // کاتێک 40%ی بۆکسەکە دێتە ناو شاشە، کار دەکات
+            rootMargin: '-10% 0px -10% 0px',
+            threshold: 0.3
         };
 
         const observer = new IntersectionObserver((entries) => {
@@ -288,16 +275,13 @@
                 const words = entry.target.querySelectorAll('.word');
                 
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('show');
-                    // دەرکەوتنی وشەکان یەک لەدوای یەک بێ کلیک
                     words.forEach((word, index) => {
                         setTimeout(() => {
                             word.style.opacity = '1';
-                        }, index * 60); // خێرایی دەرکەوتنی وشەکان (60ms)
+                        }, index * 40); // خێرایی دەرکەوتنی وشەکان (نەرم و خێرا)
                     });
                 } else {
-                    entry.target.classList.remove('show');
-                    // شاردنەوەی وشەکان کاتێک لە شاشە دەچنە دەرەوە
+                    // ئەگەر ویستت وشەکان ون ببنەوە کاتێک لە شاشە دەچنە دەرەوە
                     words.forEach(word => {
                         word.style.opacity = '0';
                     });
